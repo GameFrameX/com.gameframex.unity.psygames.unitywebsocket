@@ -1,3 +1,26 @@
+# Unity Web Socket
+
+用于Unity的WebSocket 库支持
+
+该库主要服务于 `https://github.com/AlianBlank/GameFrameX` 作为子库使用。
+
+# 使用方式(三种方式)
+
+1. 直接在 `manifest.json` 文件中添加以下内容
+   ```json
+      {"com.alianblank.unitywebsocket": "https://github.com/AlianBlank/com.alianblank.unitywebsocket.git"}
+    ```
+2. 在Unity 的`Packages Manager` 中使用`Git URL` 的方式添加库,地址为：https://github.com/AlianBlank/com.alianblank.unitywebsocket.git
+
+3. 直接下载仓库放置到Unity 项目的`Packages` 目录下。会自动加载识别
+
+# 改动功能
+
+1. 增加 `IsConnected` 的属性
+
+# 当前版本 `2.7.0`
+
+# 以下为原作者内容
 
 [(English)](README_EN.md)
 
@@ -8,7 +31,6 @@
 ## **在线示例**
 
 - **[https://psygames.github.io/UnityWebSocket/](https://psygames.github.io/UnityWebSocket/)**
-
 
 ## **快速开始**
 
@@ -56,12 +78,12 @@
 - 更多使用方法可参考项目中的 [UnityWebSocketDemo.cs](Assets/UnityWebSocket/Demo/UnityWebSocketDemo.cs) 示例代码。
 
 - 功能菜单：
-  - Tools -> UnityWebSocket，版本更新检测，问题反馈渠道等。
+    - Tools -> UnityWebSocket，版本更新检测，问题反馈渠道等。
 
 - Unity 编译宏（可选项）：
-  - `UNITY_WEB_SOCKET_LOG` 打开底层日志输出。
-  - `UNITY_WEB_SOCKET_ENABLE_ASYNC` 针对非WebGL平台使用异步线程处理消息（需自行处理跨线程访问Unity组件问题）。
-
+    - `UNITY_WEB_SOCKET_LOG` 打开底层日志输出。
+    - `UNITY_WEB_SOCKET_ENABLE_ASYNC` 针对非WebGL平台使用异步线程处理消息（需自行处理跨线程访问Unity组件问题）。
 
 ### **QQ 交流群**
+
 - 1126457634 >>> [入群通道](https://qm.qq.com/cgi-bin/qm/qr?k=KcexYJ9aYwogFXbj2aN0XHH5b2G7ICmd) <<<
