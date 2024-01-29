@@ -33,6 +33,7 @@ namespace UnityWebSocket
                     case System.Net.WebSockets.WebSocketState.Open:
                         return WebSocketState.Open;
                 }
+
                 return WebSocketState.Closed;
             }
         }
@@ -45,9 +46,19 @@ namespace UnityWebSocket
         public event EventHandler<MessageEventArgs> OnMessage;
 
         private ClientWebSocket socket;
-        private bool isOpening => socket != null && socket.State == System.Net.WebSockets.WebSocketState.Open;
 
-        #region APIs 
+        public bool IsConnected
+        {
+            get { return isOpening; }
+        }
+
+        private bool isOpening
+        {
+            get { return socket != null && socket.State == System.Net.WebSockets.WebSocketState.Open; }
+        }
+
+        #region APIs
+
         public WebSocket(string address)
         {
             this.Address = address;
@@ -75,6 +86,7 @@ namespace UnityWebSocket
                 HandleError(new Exception("Socket is busy."));
                 return;
             }
+
             socket = new ClientWebSocket();
             if (this.SubProtocols != null)
             {
@@ -85,6 +97,7 @@ namespace UnityWebSocket
                     socket.Options.AddSubProtocol(protocol);
                 }
             }
+
             Task.Run(ConnectTask);
         }
 
@@ -108,6 +121,7 @@ namespace UnityWebSocket
             var buffer = new SendBuffer(data, WebSocketMessageType.Text);
             SendBufferAsync(buffer);
         }
+
         #endregion
 
 
@@ -139,6 +153,7 @@ namespace UnityWebSocket
         {
             public byte[] data;
             public WebSocketMessageType type;
+
             public SendBuffer(byte[] data, WebSocketMessageType type)
             {
                 this.data = data;
@@ -160,6 +175,7 @@ namespace UnityWebSocket
                     {
                         sendQueue.Clear();
                     }
+
                     sendQueue.Enqueue(buffer);
                 }
             }
@@ -177,13 +193,14 @@ namespace UnityWebSocket
 
             try
             {
-                SendBuffer buffer = null;
                 while (sendQueue.Count > 0 && isOpening)
                 {
+                    SendBuffer buffer;
                     lock (sendQueueLock)
                     {
                         buffer = sendQueue.Dequeue();
                     }
+
                     if (buffer.type == WebSocketMessageType.Close)
                     {
                         Log($"Close Send Begin ...");
@@ -193,6 +210,14 @@ namespace UnityWebSocket
                     else
                     {
                         Log($"Send, type: {buffer.type}, size: {buffer.data.Length}, queue left: {sendQueue.Count}");
+
+                        StringBuilder stringBuilder = new StringBuilder();
+                        foreach (var v in buffer.data)
+                        {
+                            stringBuilder.Append(v + " ");
+                        }
+
+                        Log($"SendData: {stringBuilder}");
                         await socket.SendAsync(new ArraySegment<byte>(buffer.data), buffer.type, true, CancellationToken.None);
                     }
                 }
@@ -280,7 +305,13 @@ namespace UnityWebSocket
 
         private void HandleMessage(Opcode opcode, byte[] rawData)
         {
-            Log($"OnMessage, type: {opcode}, size: {rawData.Length}\n{BitConverter.ToString(rawData)}");
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var b in rawData)
+            {
+                stringBuilder.Append(b + " ");
+            }
+
+            Log($"OnMessage, type: {opcode}, size: {rawData.Length}\n{stringBuilder}");
 #if !UNITY_WEB_SOCKET_ENABLE_ASYNC
             HandleEventSync(new MessageEventArgs(opcode, rawData));
 #else
@@ -311,6 +342,7 @@ namespace UnityWebSocket
 #if !UNITY_WEB_SOCKET_ENABLE_ASYNC
         private readonly Queue<EventArgs> eventQueue = new Queue<EventArgs>();
         private readonly object eventQueueLock = new object();
+
         private void HandleEventSync(EventArgs eventArgs)
         {
             lock (eventQueueLock)
@@ -354,9 +386,9 @@ namespace UnityWebSocket
         static void Log(string msg)
         {
             UnityEngine.Debug.Log($"<color=yellow>[UnityWebSocket]</color>" +
-                $"<color=green>[T-{Thread.CurrentThread.ManagedThreadId:D3}]</color>" +
-                $"<color=red>[{DateTime.Now.TimeOfDay}]</color>" +
-                $" {msg}");
+                                  $"<color=green>[T-{Thread.CurrentThread.ManagedThreadId:D3}]</color>" +
+                                  $"<color=red>[{DateTime.Now.TimeOfDay}]</color>" +
+                                  $" {msg}");
         }
     }
 }

@@ -1,0 +1,4 @@
+{
+  "name": "UnityWebSocket.Demo",
+  "references":[ "UnityWebSocket.Runtime" ]
+}
