@@ -1,13 +1,24 @@
 {
-  "name": "com.alianblank.gameframex.unity.psygames.unitywebsocket",
+  "name": "com.gameframex.unity.psygames.unitywebsocket",
   "displayName": "UnityWebSocket",
   "category": "UnityWebSocket",
   "description": "",
   "version": "2.7.0",
   "unity": "2019.4",
   "keywords": [
-    "Unity WebSocket"
+    "Unity WebSocket",
+    "Game Framework X"
   ],
+  "repository": {
+    "name": "com.gameframex.unity.psygames.unitywebsocket",
+    "url": "https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git",
+    "type": "git"
+  },
+  "author": {
+    "name": "Blank",
+    "email": "alianblank@outlook.com",
+    "url": "https://alianblank.com/"
+  },
   "samples": [
     {
       "displayName": "Samples",
