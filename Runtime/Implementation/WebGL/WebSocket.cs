@@ -1,4 +1,5 @@
 ﻿#if !UNITY_EDITOR && UNITY_WEBGL
+
 using System;
 
 namespace UnityWebSocket
@@ -7,7 +8,18 @@ namespace UnityWebSocket
     {
         public string Address { get; private set; }
         public string[] SubProtocols { get; private set; }
-        public WebSocketState ReadyState { get { return (WebSocketState)WebSocketManager.WebSocketGetState(instanceId); } }
+
+        public bool IsConnected
+        {
+            get { return isOpening; }
+        }
+
+        private bool isOpening;
+
+        public WebSocketState ReadyState
+        {
+            get { return (WebSocketState)WebSocketManager.WebSocketGetState(instanceId); }
+        }
 
         public event EventHandler<OpenEventArgs> OnOpen;
         public event EventHandler<CloseEventArgs> OnClose;
@@ -92,6 +104,7 @@ namespace UnityWebSocket
         internal void HandleOnOpen()
         {
             Log("OnOpen");
+            isOpening = true;
             OnOpen?.Invoke(this, new OpenEventArgs());
         }
 
@@ -110,6 +123,7 @@ namespace UnityWebSocket
         internal void HandleOnClose(ushort code, string reason)
         {
             Log($"OnClose, code: {code}, reason: {reason}");
+            isOpening = false;
             OnClose?.Invoke(this, new CloseEventArgs(code, reason));
             WebSocketManager.Remove(instanceId);
         }
@@ -117,6 +131,7 @@ namespace UnityWebSocket
         internal void HandleOnError(string msg)
         {
             Log("OnError, error: " + msg);
+            isOpening = false;
             OnError?.Invoke(this, new ErrorEventArgs(msg));
         }
 
@@ -144,4 +159,5 @@ namespace UnityWebSocket
         }
     }
 }
+
 #endif

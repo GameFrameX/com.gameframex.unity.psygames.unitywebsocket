@@ -15,6 +15,8 @@ namespace UnityWebSocket
     /// </summary>
     public interface IWebSocket
     {
+        bool IsConnected { get; }
+        
         /// <summary>
         /// Establishes a connection asynchronously.
         /// </summary>

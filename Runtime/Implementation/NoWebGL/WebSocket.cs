@@ -44,6 +44,12 @@ namespace UnityWebSocket
         public event EventHandler<MessageEventArgs> OnMessage;
 
         private ClientWebSocket socket;
+
+        public bool IsConnected
+        {
+            get { return isOpening; }
+        }
+
         private bool isOpening => socket != null && socket.State == System.Net.WebSockets.WebSocketState.Open;
         private ConcurrentQueue<SendBuffer> sendQueue = new ConcurrentQueue<SendBuffer>();
         private ConcurrentQueue<EventArgs> eventQueue = new ConcurrentQueue<EventArgs>();
