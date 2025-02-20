@@ -1,4 +1,4 @@
-#if !UNITY_EDITOR && UNITY_WEBGL
+﻿#if !UNITY_EDITOR && UNITY_WEBGL
 using System;
 
 namespace UnityWebSocket
@@ -7,25 +7,12 @@ namespace UnityWebSocket
     {
         public string Address { get; private set; }
         public string[] SubProtocols { get; private set; }
-
-        public WebSocketState ReadyState
-        {
-            get { return (WebSocketState)WebSocketManager.WebSocketGetState(instanceId); }
-        }
-
-        public string BinaryType { get; set; } = "arraybuffer";
+        public WebSocketState ReadyState { get { return (WebSocketState)WebSocketManager.WebSocketGetState(instanceId); } }
 
         public event EventHandler<OpenEventArgs> OnOpen;
         public event EventHandler<CloseEventArgs> OnClose;
         public event EventHandler<ErrorEventArgs> OnError;
         public event EventHandler<MessageEventArgs> OnMessage;
-
-        public bool IsConnected
-        {
-            get { return isOpening; }
-        }
-
-        private bool isOpening;
 
         internal int instanceId = 0;
 
@@ -51,13 +38,9 @@ namespace UnityWebSocket
 
         internal void AllocateInstance()
         {
-            instanceId = WebSocketManager.AllocateInstance(this.Address, this.BinaryType);
+            instanceId = WebSocketManager.AllocateInstance(this.Address);
             Log($"Allocate socket with instanceId: {instanceId}");
-            if (this.SubProtocols == null)
-            {
-                return;
-            }
-
+            if (this.SubProtocols == null) return;
             foreach (var protocol in this.SubProtocols)
             {
                 if (string.IsNullOrEmpty(protocol)) continue;
@@ -82,20 +65,14 @@ namespace UnityWebSocket
             Log($"Connect with instanceId: {instanceId}");
             WebSocketManager.Add(this);
             int code = WebSocketManager.WebSocketConnect(instanceId);
-            if (code < 0)
-            {
-                HandleOnError(GetErrorMessageFromCode(code));
-            }
+            if (code < 0) HandleOnError(GetErrorMessageFromCode(code));
         }
 
         public void CloseAsync()
         {
             Log($"Close with instanceId: {instanceId}");
             int code = WebSocketManager.WebSocketClose(instanceId, (int)CloseStatusCode.Normal, "Normal Closure");
-            if (code < 0)
-            {
-                HandleOnError(GetErrorMessageFromCode(code));
-            }
+            if (code < 0) HandleOnError(GetErrorMessageFromCode(code));
         }
 
         public void SendAsync(string text)
@@ -115,7 +92,6 @@ namespace UnityWebSocket
         internal void HandleOnOpen()
         {
             Log("OnOpen");
-            isOpening = true;
             OnOpen?.Invoke(this, new OpenEventArgs());
         }
 
@@ -134,7 +110,6 @@ namespace UnityWebSocket
         internal void HandleOnClose(ushort code, string reason)
         {
             Log($"OnClose, code: {code}, reason: {reason}");
-            isOpening = false;
             OnClose?.Invoke(this, new CloseEventArgs(code, reason));
             WebSocketManager.Remove(instanceId);
         }
@@ -142,7 +117,6 @@ namespace UnityWebSocket
         internal void HandleOnError(string msg)
         {
             Log("OnError, error: " + msg);
-            isOpening = false;
             OnError?.Invoke(this, new ErrorEventArgs(msg));
         }
 
@@ -156,7 +130,8 @@ namespace UnityWebSocket
                 case -4: return "WebSocket is already closing.";
                 case -5: return "WebSocket is already closed.";
                 case -6: return "WebSocket is not in open state.";
-                case -7: return "Cannot close WebSocket. An invalid code was specified or reason is too long.";
+                case -7: return "Cannot close WebSocket, An invalid code was specified or reason is too long.";
+                case -8: return "Not support buffer slice. ";
                 default: return $"Unknown error code {errorCode}.";
             }
         }
@@ -164,9 +139,8 @@ namespace UnityWebSocket
         [System.Diagnostics.Conditional("UNITY_WEB_SOCKET_LOG")]
         static void Log(string msg)
         {
-            UnityEngine.Debug.Log($"[UnityWebSocket]" +
-                                  $"[{DateTime.Now.TimeOfDay}]" +
-                                  $" {msg}");
+            var time = DateTime.Now.ToString("HH:mm:ss.fff");
+            UnityEngine.Debug.Log($"[{time}][UnityWebSocket] {msg}");
         }
     }
 }
