@@ -1,4 +1,4 @@
-﻿#if UNITY_WEBGL && !UNITY_EDITOR
+﻿#if !UNITY_EDITOR && UNITY_WEBGL
 
 using System;
 
