@@ -3,7 +3,7 @@
   "displayName": "UnityWebSocket",
   "category": "UnityWebSocket",
   "description": "",
-  "version": "2.7.0",
+  "version": "2.8.6",
   "unity": "2019.4",
   "keywords": [
     "Unity WebSocket",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "name": "com.gameframex.unity.psygames.unitywebsocket",
-    "url": "https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git",
+    "url": "https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket.git",
     "type": "git"
   },
   "author": {
