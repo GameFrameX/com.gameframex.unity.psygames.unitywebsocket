@@ -1,10 +1,10 @@
-﻿#if UNITY_WEBGL
+﻿#if UNITY_WEBGL && !UNITY_EDITOR
 
 using System;
 
 namespace UnityWebSocket
 {
-    public class WebSocket : IWebSocket
+    public sealed class WebSocket : IWebSocket
     {
         public string Address { get; private set; }
         public string[] SubProtocols { get; private set; }
