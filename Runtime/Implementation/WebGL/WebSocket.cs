@@ -1,4 +1,4 @@
-﻿#if !UNITY_EDITOR && UNITY_WEBGL
+﻿#if UNITY_WEBGL
 
 using System;
 
@@ -50,12 +50,21 @@ namespace UnityWebSocket
 
         internal void AllocateInstance()
         {
+            Log($"AllocateInstance: {this.Address}");
             instanceId = WebSocketManager.AllocateInstance(this.Address);
             Log($"Allocate socket with instanceId: {instanceId}");
-            if (this.SubProtocols == null) return;
+            if (this.SubProtocols == null)
+            {
+                return;
+            }
+
             foreach (var protocol in this.SubProtocols)
             {
-                if (string.IsNullOrEmpty(protocol)) continue;
+                if (string.IsNullOrEmpty(protocol))
+                {
+                    continue;
+                }
+
                 Log($"Add Sub Protocol {protocol}, with instanceId: {instanceId}");
                 int code = WebSocketManager.WebSocketAddSubProtocol(instanceId, protocol);
                 if (code < 0)
@@ -84,21 +93,30 @@ namespace UnityWebSocket
         {
             Log($"Close with instanceId: {instanceId}");
             int code = WebSocketManager.WebSocketClose(instanceId, (int)CloseStatusCode.Normal, "Normal Closure");
-            if (code < 0) HandleOnError(GetErrorMessageFromCode(code));
+            if (code < 0)
+            {
+                HandleOnError(GetErrorMessageFromCode(code));
+            }
         }
 
         public void SendAsync(string text)
         {
             Log($"Send, type: {Opcode.Text}, size: {text.Length}");
             int code = WebSocketManager.WebSocketSendStr(instanceId, text);
-            if (code < 0) HandleOnError(GetErrorMessageFromCode(code));
+            if (code < 0)
+            {
+                HandleOnError(GetErrorMessageFromCode(code));
+            }
         }
 
         public void SendAsync(byte[] data)
         {
             Log($"Send, type: {Opcode.Binary}, size: {data.Length}");
             int code = WebSocketManager.WebSocketSend(instanceId, data, data.Length);
-            if (code < 0) HandleOnError(GetErrorMessageFromCode(code));
+            if (code < 0)
+            {
+                HandleOnError(GetErrorMessageFromCode(code));
+            }
         }
 
         internal void HandleOnOpen()

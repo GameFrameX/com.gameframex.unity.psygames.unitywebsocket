@@ -1,4 +1,4 @@
-﻿#if !NET_LEGACY && (UNITY_EDITOR || !UNITY_WEBGL)
+﻿#if !UNITY_WEBGL
 using System;
 using System.Text;
 using System.Threading;

@@ -1,4 +1,4 @@
-﻿#if !UNITY_EDITOR && UNITY_WEBGL
+﻿#if UNITY_WEBGL
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -16,9 +16,13 @@ namespace UnityWebSocket
 
         /* Delegates */
         public delegate void OnOpenCallback(int instanceId);
+
         public delegate void OnMessageCallback(int instanceId, IntPtr msgPtr, int msgSize);
+
         public delegate void OnMessageStrCallback(int instanceId, IntPtr msgStrPtr);
+
         public delegate void OnErrorCallback(int instanceId, IntPtr errorPtr);
+
         public delegate void OnCloseCallback(int instanceId, int closeCode, IntPtr reasonPtr);
 
         /* WebSocket JSLIB functions */
@@ -61,7 +65,7 @@ namespace UnityWebSocket
 
         [DllImport("__Internal")]
         public static extern void WebSocketSetOnClose(OnCloseCallback callback);
-        
+
         [DllImport("__Internal")]
         public static extern void WebSocketSetSupport6000();
 
@@ -135,7 +139,11 @@ namespace UnityWebSocket
 
         internal static int AllocateInstance(string address)
         {
-            if (!isInitialized) Initialize();
+            if (!isInitialized)
+            {
+                Initialize();
+            }
+
             return WebSocketAllocate(address);
         }
 
