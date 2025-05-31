@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.8.9](https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/tree/2.8.9) (2025-05-31)
+
+[Full Changelog](https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/compare/2.8.8...2.8.9)
+
 ## [2.8.8](https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/tree/2.8.8) (2025-05-30)
 
 [Full Changelog](https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/compare/2.8.7...2.8.8)
