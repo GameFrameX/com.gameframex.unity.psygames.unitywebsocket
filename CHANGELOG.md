@@ -1,3 +1,10 @@
+# [2.9.0](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.8.10...2.9.0) (2025-12-23)
+
+
+### Features
+
+* **ci:** change ci ([81a7692](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/commit/81a769231c01c03f27a1cb9e812f9a80675c2339))
+
 # Changelog
 
 ## [2.8.10](https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/tree/2.8.10) (2025-06-01)
