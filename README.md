@@ -1,89 +1,89 @@
-# Unity Web Socket
-
-用于Unity的WebSocket 库支持
-
-该库主要服务于 `https://github.com/AlianBlank/GameFrameX` 作为子库使用。
-
-# 使用方式(三种方式)
-
-1. 直接在 `manifest.json` 文件中添加以下内容
-   ```json
-      {"com.gameframex.unity.psygames.unitywebsocket": "https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git"}
-    ```
-2. 在Unity 的`Packages Manager` 中使用`Git URL` 的方式添加库,地址为：https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git
-
-3. 直接下载仓库放置到Unity 项目的`Packages` 目录下。会自动加载识别
-
-# 改动功能
-
-1. 增加 `IsConnected` 的属性
-
-# 当前版本 `2.7.0`
-
-# 以下为原作者内容
-
-[(English)](README_EN.md)
-
-<div align=center>
-  <img src="https://s1.ax1x.com/2020/08/21/dYIAQU.png" width=20%/>
+<div align="center">
+  <img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="Game Frame X Logo" width="160" />
 </div>
 
-## **在线示例**
+# Game Frame X UnityWebSocket
+
+[![License](https://img.shields.io/github/license/GameFrameX/com.gameframex.unity.psygames.unitywebsocket)](https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/blob/main/LICENSE)
+[![Version](https://img.shields.io/github/v/release/GameFrameX/com.gameframex.unity.psygames.unitywebsocket)](https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/releases)
+[![Documentation](https://img.shields.io/badge/Documentation-docs-blue)](https://gameframex.doc.alianblank.com)
+
+> All-in-One Solution for Indie Game Development · Empowering Indie Developers' Dreams
+
+[Documentation](https://gameframex.doc.alianblank.com) · [Quick Start](#quick-start) · [QQ Group](https://qm.qq.com/q/5U9Fvebw) · [Language](#language)
+
+---
+
+## Language
+
+**English** | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
+
+---
+
+## Project Overview
+
+WebSocket library for Unity. This library primarily serves as a sub-library for `https://github.com/AlianBlank/GameFrameX`.
+
+## Quick Start
+
+### Installation (three methods)
+
+1. Add the following content directly to `manifest.json`:
+   ```json
+   {"com.gameframex.unity.psygames.unitywebsocket": "https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git"}
+   ```
+
+2. Add via Unity's `Package Manager` using `Git URL`: https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git
+
+3. Download the repository directly and place it in the Unity project's `Packages` directory. It will be auto-loaded.
+
+### Modifications
+
+1. Added `IsConnected` property.
+
+## Usage Examples
+
+### Online Demo
 
 - **[https://psygames.github.io/UnityWebSocket/](https://psygames.github.io/UnityWebSocket/)**
 
-## **快速开始**
+### Basic Usage
 
-### **安装方法**
+```csharp
+// the namespace
+using UnityWebSocket;
 
-- **通过 Unity Package 安装**
+// create instance
+string address = "ws://echo.websocket.org";
+WebSocket socket = new WebSocket(address);
 
-  在 [Releases](https://github.com/psygames/UnityWebSocket/releases) 页面中，下载最新版本的 `UnityWebSocket.unitypackage` 安装包，然后导入到您的项目中。
+// register callback
+socket.OnOpen += OnOpen;
+socket.OnClose += OnClose;
+socket.OnMessage += OnMessage;
+socket.OnError += OnError;
 
-- **通过 Package Manager 安装**
+// connect
+socket.ConnectAsync();
 
-  在 Unity 菜单栏中打开 `Window/Package Manager`，点击左上角 `+` 号，选择 `Add package from git URL...` ，输入 `https://github.com/psygames/UnityWebSocket.git#upm` 并确认。
+// send string data
+socket.SendAsync(str);
+// or send byte[] data (suggested)
+socket.SendAsync(bytes);
 
-### **使用方法**
+// close connection
+socket.CloseAsync();
+```
 
-- 代码示例
+### Unity Define Symbols (Optional)
 
-  ```csharp
-  // 命名空间
-  using UnityWebSocket;
+- `UNITY_WEB_SOCKET_LOG` Open internal log info.
+- `UNITY_WEB_SOCKET_ENABLE_ASYNC` Use network thread handle message (not WebGL platform).
 
-  // 创建实例
-  string address = "ws://echo.websocket.org";
-  WebSocket socket = new WebSocket(address);
+## Changelog
 
-  // 注册回调
-  socket.OnOpen += OnOpen;
-  socket.OnClose += OnClose;
-  socket.OnMessage += OnMessage;
-  socket.OnError += OnError;
+See [CHANGELOG.md](CHANGELOG.md) for details.
 
-  // 连接
-  socket.ConnectAsync();
+## License
 
-  // 发送 string 类型数据
-  socket.SendAsync(str); 
-
-  // 或者 发送 byte[] 类型数据（建议使用）
-  socket.SendAsync(bytes); 
-
-  // 关闭连接
-  socket.CloseAsync();
-  ```
-
-- 更多使用方法可参考项目中的 [UnityWebSocketDemo.cs](Assets/UnityWebSocket/Demo/UnityWebSocketDemo.cs) 示例代码。
-
-- 功能菜单：
-    - Tools -> UnityWebSocket，版本更新检测，问题反馈渠道等。
-
-- Unity 编译宏（可选项）：
-    - `UNITY_WEB_SOCKET_LOG` 打开底层日志输出。
-    - `UNITY_WEB_SOCKET_ENABLE_ASYNC` 针对非WebGL平台使用异步线程处理消息（需自行处理跨线程访问Unity组件问题）。
-
-### **QQ 交流群**
-
-- 1126457634 >>> [入群通道](https://qm.qq.com/cgi-bin/qm/qr?k=KcexYJ9aYwogFXbj2aN0XHH5b2G7ICmd) <<<
+See the [LICENSE](LICENSE) file for details.
