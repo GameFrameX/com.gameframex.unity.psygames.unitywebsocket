@@ -1,3 +1,10 @@
+## [2.9.1](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.9.0...2.9.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **ci:** 统一 .github 工作流配置 ([76b458b](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/commit/76b458bd92b4a9c03a21677fbafcf2c6f2fce094))
+
 # [2.9.0](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.8.10...2.9.0) (2025-12-23)
 
 
