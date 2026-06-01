@@ -129,7 +129,7 @@ namespace UnityWebSocket.Editor
 
         private void DrawFooter()
         {
-            EditorGUI.DropShadowLabel(new Rect(10, 230, 400, 20), "Developed by " + Settings.AUHTOR);
+            EditorGUI.DropShadowLabel(new Rect(10, 230, 400, 20), "Developed by " + Settings.AUTHOR);
             EditorGUI.DropShadowLabel(new Rect(10, 250, 400, 20), "All rights reserved");
         }
 
