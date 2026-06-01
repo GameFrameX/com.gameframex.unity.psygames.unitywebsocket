@@ -2,7 +2,7 @@
   "name": "com.gameframex.unity.psygames.unitywebsocket",
   "displayName": "UnityWebSocket",
   "category": "UnityWebSocket",
-  "description": "",
+  "description": "WebSocket client library for Unity, supporting both non-WebGL (System.Net.WebSockets) and WebGL (JSLIB) platforms.",
   "version": "2.9.1",
   "unity": "2019.4",
   "keywords": [
@@ -14,6 +14,9 @@
     "url": "git+https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket.git",
     "type": "git"
   },
+  "documentationUrl": "https://gameframex.doc.alianblank.com",
+  "changelogUrl": "https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/GameFrameX/com.gameframex.unity.psygames.unitywebsocket/blob/main/LICENSE.md",
   "author": {
     "name": "Blank",
     "email": "alianblank@outlook.com",
