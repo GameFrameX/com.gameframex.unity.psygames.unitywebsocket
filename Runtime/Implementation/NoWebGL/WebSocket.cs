@@ -18,23 +18,30 @@ namespace UnityWebSocket
         {
             get
             {
-                if (socket == null)
-                    return WebSocketState.Closed;
-                switch (socket.State)
+                try
                 {
-                    case System.Net.WebSockets.WebSocketState.Closed:
-                    case System.Net.WebSockets.WebSocketState.None:
+                    if (socket == null)
                         return WebSocketState.Closed;
-                    case System.Net.WebSockets.WebSocketState.CloseReceived:
-                    case System.Net.WebSockets.WebSocketState.CloseSent:
-                        return WebSocketState.Closing;
-                    case System.Net.WebSockets.WebSocketState.Connecting:
-                        return WebSocketState.Connecting;
-                    case System.Net.WebSockets.WebSocketState.Open:
-                        return WebSocketState.Open;
-                }
+                    switch (socket.State)
+                    {
+                        case System.Net.WebSockets.WebSocketState.Closed:
+                        case System.Net.WebSockets.WebSocketState.None:
+                            return WebSocketState.Closed;
+                        case System.Net.WebSockets.WebSocketState.CloseReceived:
+                        case System.Net.WebSockets.WebSocketState.CloseSent:
+                            return WebSocketState.Closing;
+                        case System.Net.WebSockets.WebSocketState.Connecting:
+                            return WebSocketState.Connecting;
+                        case System.Net.WebSockets.WebSocketState.Open:
+                            return WebSocketState.Open;
+                    }
 
-                return WebSocketState.Closed;
+                    return WebSocketState.Closed;
+                }
+                catch (ObjectDisposedException)
+                {
+                    return WebSocketState.Closed;
+                }
             }
         }
 
@@ -53,7 +60,7 @@ namespace UnityWebSocket
         private bool isOpening => socket != null && socket.State == System.Net.WebSockets.WebSocketState.Open;
         private ConcurrentQueue<SendBuffer> sendQueue = new ConcurrentQueue<SendBuffer>();
         private ConcurrentQueue<EventArgs> eventQueue = new ConcurrentQueue<EventArgs>();
-        private bool closeProcessing;
+        private volatile bool closeProcessing;
         private CancellationTokenSource cts = null;
 
         #region APIs
@@ -110,6 +117,7 @@ namespace UnityWebSocket
 
         public void SendAsync(byte[] data)
         {
+            if (data == null) throw new ArgumentNullException(nameof(data));
             if (!isOpening) return;
             var buffer = new SendBuffer(data, WebSocketMessageType.Binary);
             sendQueue.Enqueue(buffer);
@@ -117,6 +125,7 @@ namespace UnityWebSocket
 
         public void SendAsync(string text)
         {
+            if (text == null) throw new ArgumentNullException(nameof(text));
             if (!isOpening) return;
             var data = Encoding.UTF8.GetBytes(text);
             var buffer = new SendBuffer(data, WebSocketMessageType.Text);
