@@ -1,3 +1,11 @@
+## [2.9.2](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.9.1...2.9.2) (2026-06-01)
+
+
+### Bug Fixes
+
+* **core:** 修正 AUTHOR 常量拼写错误 ([d812de7](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/commit/d812de7be999b69587f17c9306266359e8fa2411))
+* **websocket:** 增强 NoWebGL 线程安全和健壮性 ([71c8f18](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/commit/71c8f1815492017e7f51592e2a71c5af6a3f0e04))
+
 ## [2.9.1](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.9.0...2.9.1) (2026-05-28)
 
 
