@@ -107,6 +107,21 @@ socket.CloseAsync();
 
 詳細は [CHANGELOG.md](CHANGELOG.md) をご覧ください。
 
+
+## 依存関係
+
+| パッケージ | 説明 |
+|----------|------|
+| (无) | - |
+
+
+## ドキュメントとリソース
+
+- [ドキュメント](https://gameframex.doc.alianblank.com)
+
+## コミュニティとサポート
+
+- QQグループ: 467608841 / 233840761
 ## ライセンス
 
 詳細は [LICENSE](LICENSE) ファイルをご覧ください。
