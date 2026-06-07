@@ -33,20 +33,36 @@ WebSocket library for Unity. This library primarily serves as a sub-library for 
 
 ## Quick Start
 
-### Installation (three methods)
+### Installation
 
-1. Add the following content directly to `manifest.json`:
-   ```json
-   {"com.gameframex.unity.psygames.unitywebsocket": "https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git"}
-   ```
+Edit your Unity project's `Packages/manifest.json` and add the `scopedRegistries` section:
 
-2. Add via Unity's `Package Manager` using `Git URL`: https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
+    }
+  ]
+}
+```
 
-3. Download the repository directly and place it in the Unity project's `Packages` directory. It will be auto-loaded.
+`scopes` controls which packages are resolved through this registry. Only packages whose names start with `com.gameframex` will be fetched from it.
 
-### Modifications
+Then add the package to `dependencies`:
 
-1. Added `IsConnected` property.
+```json
+{
+  "dependencies": {
+    "com.gameframex.unity.psygames.unitywebsocket": "2.9.2"
+  }
+}
+```
+
 
 ## Usage Examples
 

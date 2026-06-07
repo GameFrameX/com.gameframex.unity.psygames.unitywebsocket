@@ -33,20 +33,36 @@
 
 ## 快速开始
 
-### 安装方式（三种方式）
+### 安装
 
-1. 直接在 `manifest.json` 文件中添加以下内容
-   ```json
-   {"com.gameframex.unity.psygames.unitywebsocket": "https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git"}
-   ```
+编辑 Unity 项目的 `Packages/manifest.json`，添加 `scopedRegistries` 部分：
 
-2. 在 Unity 的 `Packages Manager` 中使用 `Git URL` 的方式添加库，地址为：https://github.com/AlianBlank/com.gameframex.unity.psygames.unitywebsocket.git
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
+    }
+  ]
+}
+```
 
-3. 直接下载仓库放置到 Unity 项目的 `Packages` 目录下。会自动加载识别。
+`scopes` 控制哪些包通过此注册表解析。只有以 `com.gameframex` 开头的包才会从这个注册表获取。
 
-### 改动功能
+Then add the package to `dependencies`:
 
-1. 增加 `IsConnected` 的属性。
+```json
+{
+  "dependencies": {
+    "com.gameframex.unity.psygames.unitywebsocket": "2.9.2"
+  }
+}
+```
+
 
 ## 使用示例
 
