@@ -1,3 +1,10 @@
+## [2.9.3](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.9.2...2.9.3) (2026-10-15)
+
+
+### Bug Fixes
+
+* **package:** 修正品牌命名为 Game Frame X ([4b9c19c](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/commit/4b9c19c391beb56cd0dc749688027b92dc954fd5))
+
 ## [2.9.2](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.9.1...2.9.2) (2026-06-01)
 
 
