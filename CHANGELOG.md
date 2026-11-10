@@ -1,3 +1,10 @@
+## [2.9.4](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.9.3...2.9.4) (2026-11-10)
+
+
+### Bug Fixes
+
+* **psygames.unitywebsocket:** 添加完整 link.xml 防代码裁剪保护 ([9616310](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/commit/961631011786378930073aa9575a80c418089fc3))
+
 ## [2.9.3](https://github.com/gameframex/com.gameframex.unity.psygames.unitywebsocket/compare/2.9.2...2.9.3) (2026-10-15)
 
 
